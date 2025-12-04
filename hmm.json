@@ -35,7 +35,7 @@
       "type": "git",
       "dir": null,
       "ref": null,
-      "version": "https://github.com/th2l-devs/hxcpp"
+      "url": "https://github.com/th2l-devs/hxcpp"
     },
     {
       "name": "hxCodec",
