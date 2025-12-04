@@ -16,6 +16,7 @@ import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.display.StageScaleMode;
 import mobile.backend.MobileScaleMode;
+import lime.system.System as LimeSystem;
 import lime.app.Application;
 import states.TitleState;
 
