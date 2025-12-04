@@ -15,6 +15,7 @@ import openfl.Lib;
 import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.display.StageScaleMode;
+import mobile.backend.MobileScaleMode;
 import lime.app.Application;
 import states.TitleState;
 
@@ -141,8 +142,9 @@ class Main extends Sprite
 		DiscordClient.prepare();
 		#end
 
-		#if android
-		FlxG.scaleMode = new flixel.system.scaleModes.RatioScaleMode();
+		#if mobile
+		LimeSystem.allowScreenTimeout = false;
+		FlxG.scaleMode = new MobileScaleMode();
 		#end
 
 		// shader coords fix
