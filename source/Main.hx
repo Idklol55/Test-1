@@ -142,7 +142,7 @@ class Main extends Sprite
 		#end
 
 		#if android
-		FlxG.scaleMode = new flixel.system.scaleModes.FillScaleMode();
+		FlxG.scaleMode = new flixel.system.scaleModes.RatioScaleMode();
 		#end
 
 		// shader coords fix
