@@ -146,7 +146,7 @@ class Main extends Sprite
 		FlxG.signals.gameResized.add(function (w, h) {
 		     #if mobile
 		     if (fpsVar != null)
-			   fpsVar.setScale(Math.min(Lib.current.stage.stageWidth / FlxG.width, Lib.current.stage.stageHeight / FlxG.height));
+			   fpsVar.positionFPS(10, 3, Math.min(Lib.current.stage.stageWidth / FlxG.width, Lib.current.stage.stageHeight / FlxG.height));
 		     #end
 
 		     if (FlxG.cameras != null) {
