@@ -2,8 +2,10 @@
   "dependencies": [
     {
       "name": "lime",
-      "type": "haxelib",
-      "version": null
+      "type": "git",
+      "dir": null,
+      "ref": null,
+      "version": "https://github.com/th2l-devs/lime"
     },
     {
       "name": "openfl",
