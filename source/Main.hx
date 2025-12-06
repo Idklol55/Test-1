@@ -14,6 +14,7 @@ import openfl.Assets;
 import openfl.Lib;
 import openfl.display.Sprite;
 import openfl.events.Event;
+import openfl.events.KeyboardEvent;
 import openfl.display.StageScaleMode;
 import mobile.backend.MobileScaleMode;
 import lime.system.System as LimeSystem;
