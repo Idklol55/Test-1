@@ -130,6 +130,10 @@ class Main extends Sprite
 		Lib.current.stage.window.setIcon(icon);
 		#end
 
+		#if desktop
+		FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, toggleFullScreen);
+		#end
+
 		#if html5
 		FlxG.autoPause = false;
 		FlxG.mouse.visible = false;
@@ -172,6 +176,11 @@ class Main extends Sprite
 		        sprite.__cacheBitmap = null;
 			sprite.__cacheBitmapData = null;
 		}
+	}
+
+	function toggleFullScreen(event:KeyboardEvent){
+		if(Controls.instance.justReleased('fullscreen'))
+			FlxG.fullscreen = !FlxG.fullscreen;
 	}
 
 	// Code was entirely made by sqirra-rng for their fnf engine named "Izzy Engine", big props to them!!!
