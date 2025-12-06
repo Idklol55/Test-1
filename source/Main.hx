@@ -148,10 +148,16 @@ class Main extends Sprite
 		DiscordClient.prepare();
 		#end
 
+		#if android
+		FlxG.android.preventDefaultKeys = [BACK];
+		#end
+
 		#if mobile
 		LimeSystem.allowScreenTimeout = false;
 		FlxG.scaleMode = new MobileScaleMode();
 		#end
+
+		Application.current.window.vsync = false;
 
 		// shader coords fix
 		FlxG.signals.gameResized.add(function (w, h) {
