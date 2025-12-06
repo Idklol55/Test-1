@@ -9,15 +9,13 @@ import debug.FPSCounter;
 import flixel.graphics.FlxGraphic;
 import flixel.FlxGame;
 import flixel.FlxState;
+import flixel.system.scaleModes.FillScaleMode;
 import haxe.io.Path;
 import openfl.Assets;
 import openfl.Lib;
 import openfl.display.Sprite;
 import openfl.events.Event;
-import openfl.events.KeyboardEvent;
 import openfl.display.StageScaleMode;
-import mobile.backend.MobileScaleMode;
-import lime.system.System as LimeSystem;
 import lime.app.Application;
 import states.TitleState;
 
@@ -93,10 +91,9 @@ class Main extends Sprite
 
 	private function setupGame():Void
 	{
-		#if (openfl <= "9.2.0")
 		var stageWidth:Int = Lib.current.stage.stageWidth;
 		var stageHeight:Int = Lib.current.stage.stageHeight;
-
+/*
 		if (game.zoom == -1.0)
 		{
 			var ratioX:Float = stageWidth / game.width;
@@ -105,10 +102,9 @@ class Main extends Sprite
 			game.width = Math.ceil(stageWidth / game.zoom);
 			game.height = Math.ceil(stageHeight / game.zoom);
 		}
-		#else
+*/
 		if (game.zoom == -1.0)
 			game.zoom = 1.0;
-		#end
 	
 		#if LUA_ALLOWED Lua.set_callbacks_function(cpp.Callable.fromStaticFunction(psychlua.CallbackHandler.call)); #end
 		Controls.instance = new Controls();
@@ -116,7 +112,7 @@ class Main extends Sprite
 		#if ACHIEVEMENTS_ALLOWED Achievements.load(); #end
 		addChild(new FlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
 
-		//#if !mobile
+		// #if !mobile
 		fpsVar = new FPSCounter(10, 3, 0xFFFFFF);
 		addChild(fpsVar);
 		Lib.current.stage.align = "tl";
@@ -124,15 +120,11 @@ class Main extends Sprite
 		if(fpsVar != null) {
 			fpsVar.visible = ClientPrefs.data.showFPS;
 		}
-		//#end
+		// #end
 
 		#if linux
 		var icon = Image.fromFile("icon.png");
 		Lib.current.stage.window.setIcon(icon);
-		#end
-
-		#if desktop
-		FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, toggleFullScreen);
 		#end
 
 		#if html5
@@ -148,16 +140,10 @@ class Main extends Sprite
 		DiscordClient.prepare();
 		#end
 
-		#if android
-		FlxG.android.preventDefaultKeys = [BACK];
-		#end
-
 		#if mobile
-		LimeSystem.allowScreenTimeout = false;
-		FlxG.scaleMode = new MobileScaleMode();
+		FlxG.fullscreen = true;
+		FlxG.scaleMode = new FillScaleMode();
 		#end
-
-		// Application.current.window.vsync = false;
 
 		// shader coords fix
 		FlxG.signals.gameResized.add(function (w, h) {
@@ -167,6 +153,7 @@ class Main extends Sprite
 		     #end
 
 		     if (FlxG.cameras != null) {
+			   for (cam in FlxG.cameras.list) {
 			   for (cam in FlxG.cameras.list) {
 				if (cam != null && cam.filters != null)
 					resetSpriteCache(cam.flashSprite);
@@ -183,11 +170,6 @@ class Main extends Sprite
 		        sprite.__cacheBitmap = null;
 			sprite.__cacheBitmapData = null;
 		}
-	}
-
-	function toggleFullScreen(event:KeyboardEvent){
-		if(Controls.instance.justReleased('fullscreen'))
-			FlxG.fullscreen = !FlxG.fullscreen;
 	}
 
 	// Code was entirely made by sqirra-rng for their fnf engine named "Izzy Engine", big props to them!!!
